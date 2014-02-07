@@ -1,0 +1,16 @@
+{
+    "name": "comvi/curl",
+    "type": "library",
+    "description": "Work with remote servers via cURL much easier than using the native PHP bindings.",
+    "keywords": ["comvi", "cURL"],
+    "authors": [
+        {
+            "name": "Khoi Vu",
+            "email": "o0khoiclub0o@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "lib-curl": ">=7.10.5"
+    }
+}
