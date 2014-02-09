@@ -9,6 +9,9 @@
             "email": "o0khoiclub0o@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {"Comvi\\": ""}
+    },
     "require": {
         "php": ">=5.3.0",
         "lib-curl": ">=7.10.5"
