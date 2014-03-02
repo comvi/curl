@@ -246,6 +246,24 @@ class CURL {
 		return $this->getInfo('http_code');
 	}
 
+	// Return raw response
+	public function getResponse()
+	{
+		return $this->response;
+	}
+
+	// Return error code
+	public function getErrorCode()
+	{
+		return $this->error_code;
+	}
+
+	// Return error string
+	public function getError()
+	{
+		return $this->error_string;
+	}
+
 	// Return curl info by specified key, or whole array
 	public function getInfo($key = null)
 	{
@@ -265,7 +283,7 @@ class CURL {
 		$this->headers = array();
 		$this->options = array();
 		$this->error_code = null;
-		$this->error_string = '';
+		$this->error_string = null;
 		$this->response = null;
 	}
 }
