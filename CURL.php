@@ -46,7 +46,7 @@ class CURL {
     {
         $option = array(
             CURLOPT_POST            => true,
-            CURLOPT_POSTFIELDS        => $params
+            CURLOPT_POSTFIELDS        => static::to_1_level_array($params)
         );
 
         return $this->execute($option);
@@ -58,7 +58,7 @@ class CURL {
             CURLOPT_CUSTOMREQUEST    => 'PUT',
             // Override method, I think this overrides $_POST with PUT/DELETE data but... we'll see eh?
             CURLOPT_HTTPHEADER        => array('X-HTTP-Method-Override: PUT'),
-            CURLOPT_POSTFIELDS        => $params
+            CURLOPT_POSTFIELDS        => static::to_1_level_array($params)
         );
 
         return $this->execute($option);
@@ -69,7 +69,7 @@ class CURL {
         $option = array(
             CURLOPT_CUSTOMREQUEST    => 'DELETE',
             CURLOPT_HTTPHEADER        => array('X-HTTP-Method-Override: DELETE'),
-            CURLOPT_POSTFIELDS        => $params
+            CURLOPT_POSTFIELDS        => static::to_1_level_array($params)
         );
 
         return $this->execute($option);
@@ -289,5 +289,30 @@ class CURL {
         $this->error_code = null;
         $this->error_string = null;
         $this->response = null;
+    }
+
+    /**
+     * Convert nested array to 1 level array
+     *
+     * @param  array $array
+     * @param  string $prefix
+     * @return array
+     */
+    public static function to_1_level_array($array, $prefix = null)
+    {
+        $return = array();
+
+        foreach ($array as $key => $value) {
+            $name = $prefix ? "{$prefix}[{$key}]" : $key;
+
+            if (is_array($value) || is_object($value)) {
+                $return += static::to_1_level_array($value, $name);
+            }
+            else {
+                $return[$name] = $value;
+            }
+        }
+
+        return $return;
     }
 }
