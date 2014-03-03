@@ -131,7 +131,7 @@ class CURL {
 
         curl_close($ch);
 
-        return $this;
+        return $this->response;
     }
 
     public function setUrl($url)
@@ -214,6 +214,11 @@ class CURL {
     public function isEnabled()
     {
         return function_exists('curl_init');
+    }
+
+    public function enableDebug()
+    {
+        $this->setOption(CURLOPT_VERBOSE, true);
     }
 
     public function debug()
